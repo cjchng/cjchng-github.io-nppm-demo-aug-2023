@@ -1,0 +1,6 @@
+/home/cj/Dropbox/19-22-ing/er/robert/2-robert/apps/nppm
+
+/home/cj/Dropbox/19-22-ing/.nppm-meta/defaultS
+/home/cj/Dropbox/19-22-ing/.nppm-meta/defaultS/2Demo.txt
+
+#ln -s /home/cj/Dropbox/19-22-ing/.nppm-meta/defaultS/ ln-defaultS

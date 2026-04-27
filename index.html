@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NPPM Demo</title>
+    <meta
+      name="description"
+      content="NPPM Demo project page: fisheye media playback, recipe management, and browser-based demo control."
+    >
+    <meta name="theme-color" content="#14213d">
+    <link rel="stylesheet" href="assets/site.css">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Project navigation">
+      <a class="brand" href="#top" aria-label="NPPM Demo home">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span>NPPM Demo</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#docs">Docs</a>
+        <a href="https://github.com/cjchng/cjchng.github.io">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">C++ fisheye demo system</p>
+          <h1 id="hero-title">NPPM Demo</h1>
+          <p class="hero-text">
+            A desktop OpenCV application and browser control panel for running fisheye media demos from
+            cast and YAML recipes.
+          </p>
+          <div class="hero-actions" aria-label="Primary links">
+            <a class="button primary" href="#quickstart">Quick start</a>
+            <a class="button secondary" href="cdx-cj-README.md">Operations guide</a>
+          </div>
+        </div>
+
+        <div class="projection-panel" aria-label="Animated fisheye projection preview">
+          <div class="panel-toolbar">
+            <span class="status-dot"></span>
+            <span>projection preview</span>
+          </div>
+          <canvas id="projection-canvas" width="720" height="460"></canvas>
+          <div class="panel-footer">
+            <span>cast</span>
+            <span>yaml</span>
+            <span>OpenCV</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section overview" id="overview" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <p class="eyebrow">Repository map</p>
+          <h2 id="overview-title">What is here</h2>
+        </div>
+        <div class="overview-grid">
+          <article class="info-card">
+            <h3>Runtime app</h3>
+            <p><code>apps/nppm</code> contains the <code>x_mainmoil</code> C++ target, recipe resolution, media loading, and UI loop.</p>
+          </article>
+          <article class="info-card">
+            <h3>Control panel</h3>
+            <p><code>tools/nppm_control_server.py</code> provides recipe selection, demo toggles, countdowns, and editor controls.</p>
+          </article>
+          <article class="info-card">
+            <h3>Recipe formats</h3>
+            <p>Current runtime recipes are <code>.cast</code> and <code>.yaml</code>; <code>.script</code> remains as a legacy migration input.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section command-section" id="quickstart" aria-labelledby="quickstart-title">
+        <div class="section-heading">
+          <p class="eyebrow">Local runbook</p>
+          <h2 id="quickstart-title">Quick start</h2>
+        </div>
+        <div class="command-grid">
+          <article class="command-block">
+            <div class="command-label">Build</div>
+            <pre><code>cmake -S . -B build -DOpenCV_DIR=/home/cj/cv-2026/lib/cmake/opencv4
+cmake --build build -j2</code></pre>
+          </article>
+          <article class="command-block">
+            <div class="command-label">Run desktop app</div>
+            <pre><code>DISPLAY=:0 ./build/apps/nppm/x_mainmoil</code></pre>
+          </article>
+          <article class="command-block">
+            <div class="command-label">Run browser panel</div>
+            <pre><code>python3 tools/nppm_control_server.py
+
+http://127.0.0.1:8080</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="section workflow" id="workflow" aria-labelledby="workflow-title">
+        <div class="section-heading">
+          <p class="eyebrow">Runtime flow</p>
+          <h2 id="workflow-title">How a demo run is selected</h2>
+        </div>
+        <ol class="flow-list">
+          <li>
+            <span class="flow-number">1</span>
+            <div>
+              <h3>Resolve metadata root</h3>
+              <p>Use <code>CJ_NPPM_META</code>, repo-local metadata, or the configured Dropbox-backed <code>.nppm-meta</code> fallback.</p>
+            </div>
+          </li>
+          <li>
+            <span class="flow-number">2</span>
+            <div>
+              <h3>Choose active recipe</h3>
+              <p>Prefer <code>defaultS/active_recipes.yaml</code>; fall back to compatibility files when needed.</p>
+            </div>
+          </li>
+          <li>
+            <span class="flow-number">3</span>
+            <div>
+              <h3>Launch media projection</h3>
+              <p><code>x_mainmoil</code> loads the selected cast or YAML recipe and renders the configured media source.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section docs" id="docs" aria-labelledby="docs-title">
+        <div class="section-heading">
+          <p class="eyebrow">Project notes</p>
+          <h2 id="docs-title">Documentation</h2>
+        </div>
+        <div class="doc-list">
+          <a href="README.md">
+            <span>README</span>
+            <small>project overview and commands</small>
+          </a>
+          <a href="cdx-cj-README.md">
+            <span>Operations guide</span>
+            <small>build, runtime, recipe flow, troubleshooting</small>
+          </a>
+          <a href="docs/yaml-recipe-v1-design.md">
+            <span>YAML recipe design</span>
+            <small>schema notes for modern recipes</small>
+          </a>
+          <a href="docs/2Demo-legacy-note.md">
+            <span>Legacy demo note</span>
+            <small>migration context for older recipe lists</small>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>NPPM Demo</span>
+      <a href="https://github.com/cjchng/cjchng.github.io">github.com/cjchng/cjchng.github.io</a>
+    </footer>
+
+    <script src="assets/site.js"></script>
+  </body>
+</html>

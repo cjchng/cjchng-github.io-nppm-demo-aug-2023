@@ -1,0 +1,89 @@
+ssh -p 2222 cj@127.0.0.1
+
+$ g++ -fpic -g -c -Wall src/mult.cpp
+$ g++ -fpic -g -c -Wall src/add.cpp
+
+
+$ g++ -shared -Wl,-soname,libcjstuff.so.1 -o libcjstuff.so.1.0.1 add.o mult.o -lc
+
+$ g++ -shared -fPIC -o libaddbycj.so src/add.cpp
+$ g++ test.cpp -L /home/cj/cj2hisi/so/ -laddbycj -o sample
+$ export LD_LIBRARY_PATH=/home/cj/cj2hisi/so:$LD_LIBRARY_PATH
+$ ./sample
+
+
+$ g++ -shared -fPIC -o libaddbycj.so src/add.cpp src/mult.cpp
+
+$ mkdir try_hisi_hg++
+$ cd try_hisi_hg++
+$ hg++ -shared -fPIC -o libhisi-1.so ../src/add.cpp s../rc/mult.cpp
+
+
+$ cd ~/cj2hisi/cj-appm-app/dev/hisi
+
+$  hg++ -shared -fPIC -o libhisinppm.so ../configdata.cpp ../moildev.cpp
+
+$ $ hg++ ../dev-test.cpp -L .. -lhisinppm -o hisi-test
+/opt/hisi-linux/x86-arm/arm-hisiv600-linux/bin/../lib/gcc/arm-hisiv600-linux-gnueabi/4.9.4/../../../../arm-hisiv600-linux-gnueabi/bin/ld: cannot find -lhisinppm
+collect2: error: ld returned 1 exit status
+
+$ hg++ ../dev-test.cpp -L /home/cj/cj2hisi/cj-appm-app/dev/hisi/ -lhisinppm -o hisi-test
+
+
+$ pwd
+   ~/cj2hisi/cj-appm-app/dev/ubt-2004
+
+$ g++ -shared -fPIC -o libubt2004nppm.so ../configdata.cpp ../moildev.cpp
+$ ls
+   libubt2004nppm.so
+$ g++ ../dev-test.cpp -L /home/cj/cj2hisi/cj-appm-app/dev/ubt-2004/ -lubt2004nppm -o ubt-test
+$ ls
+   libubt2004nppm.so  ubt-test
+ssh -p 2222 cj@127.0.0.1
+
+$ g++ -fpic -g -c -Wall src/mult.cpp
+$ g++ -fpic -g -c -Wall src/add.cpp
+
+
+$ g++ -shared -Wl,-soname,libcjstuff.so.1 -o libcjstuff.so.1.0.1 add.o mult.o -lc
+
+$ g++ -shared -fPIC -o libaddbycj.so src/add.cpp
+$ g++ test.cpp -L /home/cj/cj2hisi/so/ -laddbycj -o sample
+$ export LD_LIBRARY_PATH=/home/cj/cj2hisi/so:$LD_LIBRARY_PATH
+$ ./sample
+
+
+$ g++ -shared -fPIC -o libaddbycj.so src/add.cpp src/mult.cpp
+
+$ mkdir try_hisi_hg++
+$ cd try_hisi_hg++
+$ hg++ -shared -fPIC -o libhisi-1.so ../src/add.cpp s../rc/mult.cpp
+
+
+$ cd ~/cj2hisi/cj-appm-app/dev/hisi
+
+$  hg++ -shared -fPIC -o libhisinppm.so ../configdata.cpp ../moildev.cpp
+
+$ $ hg++ ../dev-test.cpp -L .. -lhisinppm -o hisi-test
+/opt/hisi-linux/x86-arm/arm-hisiv600-linux/bin/../lib/gcc/arm-hisiv600-linux-gnueabi/4.9.4/../../../../arm-hisiv600-linux-gnueabi/bin/ld: cannot find -lhisinppm
+collect2: error: ld returned 1 exit status
+
+$ hg++ ../dev-test.cpp -L /home/cj/cj2hisi/cj-appm-app/dev/hisi/ -lhisinppm -o hisi-test
+
+
+$ pwd
+   ~/cj2hisi/cj-appm-app/dev/ubt-2004
+
+$ g++ -shared -fPIC -o libubt2004nppm.so ../configdata.cpp ../moildev.cpp
+$ ls
+   libubt2004nppm.so
+$ g++ ../dev-test.cpp -L /home/cj/cj2hisi/cj-appm-app/dev/ubt-2004/ -lubt2004nppm -o ubt-test
+$ ls
+   libubt2004nppm.so  ubt-test
+
+$ export LD_LIBRARY_PATH=/home/cj/cj2hisi/cj-appm-app/dev/ubt-2004/:$LD_LIBRARY_PATH
+$ ./ubt-test
+   Library worked!!
+$ export LD_LIBRARY_PATH=/home/cj/cj2hisi/cj-appm-app/dev/ubt-2004/:$LD_LIBRARY_PATH
+$ ./ubt-test
+   Library worked!!

@@ -1,0 +1,83 @@
+# This file documents current external configuration values for the project.
+# Code wiring is partial, not complete.
+# Example active_recipes.yaml:
+# active:
+#   cast: "leo-fisheye@neihu-mp4-115.cast"
+#   yaml: "leo-fisheye@lab103.yaml"
+# default_kind: yaml
+
+build:
+  opencv_dir: /home/cj/cv-2026/lib/cmake/opencv4
+
+runtime:
+  display: ":0"
+
+metadata:
+  preferred_root: /home/cj/usb_1T_disk/Dropbox/19-22-ing/.nppm-meta
+  legacy_root: /home/cj/Dropbox/19-22-ing/.nppm-meta
+  local_meta_dirname: .nppm-meta
+  default_subdir: defaultS
+  active_recipes_state_name: active_recipes.yaml
+  active_recipe_name: active_recipe.txt
+  legacy_recipe_list_name: 2Demo.txt
+  supported_recipe_extensions:
+    - .cast
+    - .script # legacy migration format
+    - .yaml
+  runnable_recipe_extensions:
+    - .cast
+    - .yaml
+  env_recipe_var: CJ_NPPM_RECIPE
+  env_meta_var: CJ_NPPM_META
+
+symlinks:
+  recipe_link_prefix: running_recipe@
+  metadata_root_link_name: ln-nppm-meta
+  default_dir_link_name: ln-defaultS
+  active_recipes_state_link_name: ln-active_recipes.yaml
+  active_recipe_link_name: ln-active_recipe.txt
+  recipe_list_link_name: ln-2Demo.txt
+
+files:
+  born_file_prefix: born_
+
+path_remap:
+  dropbox_root_token: "@DROPBOX_ROOT@"
+  legacy_dropbox_prefix: /home/cj/Dropbox/
+  usb_dropbox_prefix: /home/cj/usb_1T_disk/Dropbox/
+  env_dropbox_root_var: CJ_NPPM_DROPBOX_ROOT
+
+control_server:
+  host: 127.0.0.1
+  port: 8080
+  inventory_source: defaultS_real_files_only
+  list_type_filter:
+    - cast
+    - script # legacy
+    - yaml
+  runnable_recipe_types:
+    - cast
+    - yaml
+  default_demo_timeout_seconds: 10
+
+media_support:
+  image: true
+  video_file: true
+  stream_http: true
+  camera_usb: true
+  legacy_rpi_curl_capture: false
+
+notes:
+  - Edit these values when moving the metadata root or asset roots to another machine.
+  - The current codebase still reads many of these values from source and CMake.
+  - active_recipes.yaml is the preferred recipe-selection mechanism.
+  - active_recipes.yaml stores active.cast, active.yaml, and default_kind.
+  - active_recipe.txt is still written as a compatibility mirror for the selected default_kind.
+  - 2Demo.txt remains a legacy fallback.
+  - The Python control server lists recipe files directly from defaultS rather than from 2Demo.txt.
+  - x_mainmoil accepts .cast and .yaml recipe files at runtime.
+  - .script is a legacy migration format and should be phased out after YAML conversion.
+  - The Python control server keeps .script visible for editing and conversion, but does not run it directly.
+  - Recipes may use @DROPBOX_ROOT@/... to avoid machine-specific absolute Dropbox paths.
+  - CJ_NPPM_DROPBOX_ROOT overrides automatic Dropbox-root detection.
+  - Legacy Raspberry Pi shell-based curl capture is intentionally unsupported.
